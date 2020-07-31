@@ -6,6 +6,7 @@ import org.springframework.stereotype.Repository;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 
 @Repository
 public class MarkJdbc {
@@ -27,7 +28,8 @@ public class MarkJdbc {
         return mark;
     }
 
-    public Mark search(String mark) {
-        return jdbcTemplate.queryForObject("SELECT * FROM mark WHERE name = ?", Mark.class, mark);
+    // показать все оценки
+    public List<Mark> showAll() {
+        return jdbcTemplate.query("SELECT * FROM mark", this::mapMark);
     }
 }
