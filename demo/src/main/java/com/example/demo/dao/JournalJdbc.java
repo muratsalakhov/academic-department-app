@@ -1,11 +1,13 @@
 package com.example.demo.dao;
 
 import com.example.demo.model.Journal;
+import com.example.demo.model.Mark;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 
 @Repository
 public class JournalJdbc {
@@ -29,6 +31,11 @@ public class JournalJdbc {
         );
         return journal;
     }
+
+    public List<Journal> showAll() {
+        return jdbcTemplate.query("SELECT * FROM journal", this::mapJournal);
+    }
+
 
     /*public Journal searchByStudent(int student_id) {
         return jdbcTemplate.queryForObject("SELECT * FROM journal WHERE student_id = ?", Journal.class, student_id);

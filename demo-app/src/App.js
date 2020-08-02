@@ -3,13 +3,17 @@ import logo from './logo.svg'
 import './App.css';
 import StudentsTable from "./Components/StudentsTable";
 import SubjectsTable from "./Components/SubjectsTable";
+import JournalTable from "./Components/JournalTable";
 
 class App extends React.Component {
     render() {
         return (
             <div>
                 <StudentsTable />
+                <hr />
                 <SubjectsTable />
+                <hr />
+                <JournalTable />
             </div>
         );
     }
