@@ -37,6 +37,11 @@ public class StudentJdbc {
         return jdbcTemplate.query("SELECT * FROM student WHERE name = ?", this::mapStudent, student_name);
     }
 
+    // всех локальных студентов
+    public List<Student> getAllLocal() {
+        return jdbcTemplate.query("SELECT * FROM student_local", this::mapStudent);
+    }
+
     // показать всех студентов
     public List<Student> showAll() {
         return jdbcTemplate.query("SELECT * FROM student", this::mapStudent);
