@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import StudentsItem from './StudentsItem.js'
+import _ from 'lodash';
 
 class StudentsTable extends React.Component {
 
@@ -8,6 +9,8 @@ class StudentsTable extends React.Component {
         this.state = {
             error: null,
             isLoaded: false,
+            sort: 'asc', // 'desc'
+            sortField: 'id',
             students: []
         };
     }
@@ -33,6 +36,19 @@ class StudentsTable extends React.Component {
             )
     }
 
+    onSort = sortField => {
+        const cloneData = this.state.students.concat();
+        const sortType = this.state.sort === 'asc' ? 'desc' : 'asc';
+        const orderedData = _.orderBy(cloneData, sortField, sortType);
+
+        this.setState({
+            students: orderedData,
+            sort: sortType,
+            sortField
+        })
+    }
+
+
     render() {
         const { error, isLoaded, students } = this.state;
         if (error) {
@@ -47,16 +63,29 @@ class StudentsTable extends React.Component {
                             <td colSpan={5}>Список всех студентов</td>
                         </tr>
                         <tr>
-                            <td>№</td>
-                            <td>Имя</td>
-                            <td>Фамилия</td>
-                            <td>Отчество</td>
-                            <td>Группа</td>
+                            <th onClick={this.onSort.bind(null, 'id')}>№
+                                {this.state.sortField === 'id' ? <small>{this.state.sort}</small> : null}</th>
+                            <th onClick={this.onSort.bind(null, 'name')}>Имя
+                                {this.state.sortField === 'name' ? <small>{this.state.sort}</small> : null}</th>
+                            <th onClick={this.onSort.bind(null, 'surname')}>Фамилия
+                                {this.state.sortField === 'surname' ? <small>{this.state.sort}</small> : null}</th>
+                            <th onClick={this.onSort.bind(null, 'secondName')}>Отчество
+                                {this.state.sortField === 'secondName' ? <small>{this.state.sort}</small> : null}</th>
+                            <th onClick={this.onSort.bind(null, 'studyGroupId')}>Группа
+                                {this.state.sortField === 'studyGroupId' ? <small>{this.state.sort}</small> : null}</th>
                         </tr>
                     </thead>
-                    {this.state.students.map((student) => (
-                        <StudentsItem student={student} />
-                    ))}
+                    <tbody>
+                        {this.state.students.map((student) => (
+                            <tr>
+                                <td>{student.id}</td>
+                                <td>{student.name}</td>
+                                <td>{student.surname}</td>
+                                <td>{student.secondName}</td>
+                                <td>{student.studyGroupId}</td>
+                            </tr>
+                        ))}
+                    </tbody>
                 </table>
             );
         }
