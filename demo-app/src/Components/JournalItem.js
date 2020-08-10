@@ -77,9 +77,9 @@ class JournalItem extends React.Component {
     render() {
         const { error, isLoaded, journalItem, student, mark } = this.state;
         if (error) {
-            return <div>Ошибка: {error.message}</div>;
+            return <tr><td>Ошибка: {error.message}</td></tr>;
         } else if (!isLoaded) {
-            return <div>Загрузка...</div>;
+            return <tr><td>Загрузка...</td></tr>;
         } else {
             const classes =[]
             if (this.state.mark.name === "Незачет" || this.state.mark.name === "Неудовлетворительно") {

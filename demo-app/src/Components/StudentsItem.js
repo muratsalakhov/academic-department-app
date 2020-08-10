@@ -1,5 +1,4 @@
 import React from 'react'
-import DropDownMenu from './DropDownMenu'
 
 function StudentItem({student}) {
     return (

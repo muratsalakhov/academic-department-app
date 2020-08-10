@@ -1,9 +1,9 @@
 import React, {Component} from 'react'
-import StudentsItem from './StudentsItem.js'
+//import StudentsItem from './StudentsItem.js'
 import _ from 'lodash';
 
 class StudentsTable extends React.Component {
-    ws = new WebSocket("ws://localhost:8080")
+
 
     constructor(props) {
         super(props);
@@ -17,24 +17,6 @@ class StudentsTable extends React.Component {
     }
 
     componentDidMount() {
-
-        this.ws.onopen = () => {
-            // on connecting, do nothing but log it to the console
-            console.log('connected')
-        }
-
-        this.ws.onmessage = evt => {
-            // listen to data sent from the websocket server
-            const message = JSON.parse(evt.data)
-            this.setState({dataFromServer: message})
-            console.log(message)
-        }
-
-        this.ws.onclose = () => {
-            console.log('disconnected')
-            // automatically try to reconnect on connection loss
-
-        }
 
         fetch("http://localhost:8080/student/show_all")
             .then(res => res.json())
@@ -80,7 +62,7 @@ class StudentsTable extends React.Component {
                 <table>
                     <thead>
                         <tr>
-                            <td colSpan={5}>Список всех студентов</td>
+                            <td colSpan={5} onClick={this.sendMessage}>Список всех студентов</td>
                         </tr>
                         <tr>
                             <th onClick={this.onSort.bind(null, 'id')}>№

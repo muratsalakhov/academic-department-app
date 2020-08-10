@@ -55,9 +55,11 @@ class JournalTable extends React.Component {
                         <td>Оценка</td>
                     </tr>
                     </thead>
-                    {this.state.journal.map((journalItem) => (
-                        <JournalItem journalItem={journalItem} />
-                    ))}
+                    <tbody>
+                        {this.state.journal.map((journalItem) => (
+                            <JournalItem key={journalItem.id} journalItem={journalItem} />
+                        ))}
+                    </tbody>
                 </table>
             );
         }

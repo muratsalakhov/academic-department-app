@@ -1,11 +1,19 @@
 import React,  {useState, useEffect} from 'react';
-import logo from './logo.svg'
+//import logo from './logo.svg'
 import './App.css';
 import StudentsTable from "./Components/StudentsTable";
 import SubjectsTable from "./Components/SubjectsTable";
 import JournalTable from "./Components/JournalTable";
+import SockJsClient from 'react-stomp';
 
 class App extends React.Component {
+
+    sendMessage = () => {
+        this.clientRef.sendMessage('/app/user-all', JSON.stringify({
+            message: 'hello'
+        }));
+    };
+
     render() {
         return (
             <div>
@@ -14,7 +22,23 @@ class App extends React.Component {
                 <SubjectsTable />
                 <hr />
                 <JournalTable />
-            </div>
+                <SockJsClient url='http://localhost:8080/websocket-chat/'
+                              topics={['/topic/user']}
+                              onConnect={() => {
+                                  console.log("connected");
+                              }}
+                              onDisconnect={() => {
+                                  console.log("Disconnected");
+                              }}
+                              onMessage={(msg) => {
+                                  console.log(msg);
+                              }}
+                              ref={(client) => {
+                                  this.clientRef = client
+                              }}/>
+
+                <button onClick={this.sendMessage}>Send</button>
+                </div>
         );
     }
 }

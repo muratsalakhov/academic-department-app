@@ -53,9 +53,11 @@ class SubjectsTable extends React.Component {
                         <td>Тип аттестации</td>
                     </tr>
                     </thead>
-                    {this.state.subjects.map((subject) => (
-                        <SubjectsItem subject={subject} />
-                    ))}
+                    <tbody>
+                        {this.state.subjects.map((subject) => (
+                            <SubjectsItem key={subject.id} subject={subject} />
+                        ))}
+                    </tbody>
                 </table>
             );
         }
