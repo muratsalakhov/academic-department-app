@@ -57,6 +57,13 @@ public class StudentController {
         return studentJdbc.editStudent(id, newStudent);
     }
 
+    // редактировать студента
+    @RequestMapping(value="/student-change/{id}", method = RequestMethod.PUT,
+            consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public int editStudentGroup(@PathVariable int id, @RequestBody Student newStudent) {
+        return studentJdbc.editStudentGroup(id, newStudent);
+    }
+
     // удалить студента
     @DeleteMapping("/student/{id}")
     public int editStudent(@PathVariable int id) {
