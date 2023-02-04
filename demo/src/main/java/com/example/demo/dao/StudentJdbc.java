@@ -53,19 +53,23 @@ public class StudentJdbc {
     }
 
     // добавить студента
-    public Student addStudent(Student student) {
-        assert jdbcTemplate.update("INSERT INTO student VALUES (?, ?, ?, ?, ?)", student.getId(), student.getSurname(), student.getName(), student.getSecondName(), student.getStudyGroupId()) > 0;
-        return get(student.getId());
+    public int addStudent(Student student) {
+        System.out.println(student.getSurname());
+        return jdbcTemplate.update("INSERT INTO student VALUES (?, ?, ?, ?, ?)", student.getId(), student.getSurname(), student.getName(), student.getSecondName(), student.getStudyGroupId());
     }
 
     // изменить студента
-    public Student editStudent(Student student) {
-        assert jdbcTemplate.update("UPDATE student SET surname = ?2, name = ?3, second_name = ?4, study_group_id = ?5 where id = ?1", student.getId(), student.getSurname(), student.getName(), student.getSecondName(), student.getStudyGroupId()) > 0;
-        return get(student.getId());
+    public int editStudent(int id, Student student) {
+        return jdbcTemplate.update("UPDATE student SET surname = ?2, name = ?3, second_name = ?4, study_group_id = ?5 where id = ?1", id, student.getSurname(), student.getName(), student.getSecondName(), student.getStudyGroupId());
+    }
+
+    // изменить группу студента
+    public int editStudentGroup(int id, Student student) {
+        return jdbcTemplate.update("UPDATE student SET study_group_id = ?2 where id = ?1", id, student.getStudyGroupId());
     }
 
     // удалить студента
-    public int delete(int id) {
+    public int deleteStudent(int id) {
         return jdbcTemplate.update("DELETE FROM student WHERE id = ?", id);
     }
 }

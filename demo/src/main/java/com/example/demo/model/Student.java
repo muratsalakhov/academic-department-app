@@ -1,13 +1,13 @@
 package com.example.demo.model;
 
 public class Student {
-    private Integer id;
+    private int id;
     private String surname;
     private String name;
     private String second_name;
     private int study_group_id;
 
-    public Student(Integer id, String surname, String name, String second_name, int study_group_id) {
+    public Student(int id, String surname, String name, String second_name, int study_group_id) {
         this.id = id;
         this.surname = surname;
         this.name = name;
@@ -15,11 +15,11 @@ public class Student {
         this.study_group_id = study_group_id;
     }
 
-    public Integer getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(int id) {
         this.id = id;
     }
 
